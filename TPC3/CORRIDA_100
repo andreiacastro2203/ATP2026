@@ -1,0 +1,62 @@
+import random
+
+META = 100
+MAX_JOGADA = 10
+# Posições vencedoras: 1, 12, 23, 34, 45, 56, 67, 78, 89, 100  (total % 11 == 1)
+
+
+def jogada_computador(total):
+    """Devolve a jogada do computador: leva o total para um valor com total % 11 == 1.
+    Se já estiver numa posição perdida, joga um número aleatório."""
+    jogada = (1 - total) % (MAX_JOGADA + 1)
+    if jogada == 0:  # sem estratégia vencedora possível
+        jogada = random.randint(1, MAX_JOGADA)
+    return jogada
+
+
+def jogada_humano(total):
+    """Pede uma jogada válida ao jogador."""
+    maximo = min(MAX_JOGADA, META - total)
+    while True:
+        try:
+            jogada = int(input(f"A tua jogada (1 a {maximo}): "))
+            if 1 <= jogada <= maximo:
+                return jogada
+        except ValueError:
+            pass
+        print("Jogada inválida, tenta outra vez.")
+
+
+def jogar(computador_primeiro):
+    total = 0
+    vez_computador = computador_primeiro
+    print(f"\nTotal inicial: {total}")
+
+    while total < META:
+        if vez_computador:
+            jogada = jogada_computador(total)
+            print(f"Computador soma {jogada}.")
+        else:
+            jogada = jogada_humano(total)
+        total += jogada
+        print(f"Total: {total}")
+
+        if total == META:
+            print("\nO computador venceu!" if vez_computador else "\nParabéns, venceste!")
+        vez_computador = not vez_computador
+
+
+def main():
+    print("=== Corrida para o 100 ===")
+    while True:
+        escolha = input("\nQuem joga primeiro? (1 = computador, 2 = jogador, 0 = sair): ")
+        if escolha == "0":
+            break
+        if escolha in ("1", "2"):
+            jogar(computador_primeiro=(escolha == "1"))
+        else:
+            print("Opção inválida.")
+
+
+if __name__ == "__main__":
+    main()
