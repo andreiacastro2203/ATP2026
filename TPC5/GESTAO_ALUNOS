@@ -1,0 +1,110 @@
+
+
+def menu():
+    print("\nMenu")
+    print("1: Criar uma Turma")
+    print("2: Inserir um aluno na turma")
+    print("3: Listar a turma")
+    print("4: Consultar o aluno por id")
+    print("8: Guardar a turma em ficheiro")
+    print("9: Carregar uma turma de um ficheiro")
+    print("0: Sair da aplicação")
+
+
+def Criarturma(turma):
+    turma = []
+    n = int(input("Quantos alunos tem a turma?"))
+    
+    for i in range(n):
+        print(f"\nAluno {i + 1}:")
+        nome = input("Nome: ")
+        id_aluno = input("ID: ")
+        notaTPC = float(input("Nota do TPC: "))
+        notaProj = float(input("Nota do Projeto: "))
+        notaTeste = float(input("Nota do Teste: "))
+        
+        aluno = (nome, id_aluno, [notaTPC, notaProj, notaTeste])
+        turma.append(aluno)
+    
+    return turma
+
+def Inseriraluno(turma):
+    nome = input("Nome: ")
+    id_aluno = input("ID: ")
+    notaTPC = float(input("Nota do TPC: "))
+    notaProj = float(input("Nota do Projeto: "))
+    notaTeste = float(input("Nota do Teste: "))
+
+    aluno = (nome, id_aluno, [notaTPC, notaProj, notaTeste])
+    turma.append(aluno)
+
+    Listarturma(turma)
+
+def Listarturma(turma):
+    if len(turma) == 0:
+        print("A turma está vazia.")
+        return
+
+    print("\nTurma:")
+    for a in turma:
+        print(f"Nome: {a[0]} | ID: {a[1]} | Notas: {a[2]}")
+
+def Consultarid(turma, id):
+    i = 0
+    id = int(input('Introduza o id do aluno: '))
+    for i, aluno in enumerate(turma):
+        print(f'Nome: {aluno[0]}, ID: {id}, Notas: {aluno[2]}')
+        return
+    print(f'Aluno com id {id} não encontrado na turma')
+
+def GuardarTurma(turma, fnome):
+    with open(fnome, 'w') as file:
+        for nome, id, notas in turma: # Aluno fica formatado como 'nome,id::nota1,nota2,nota3'
+            notas_str = ",".join(map(str, notas))
+            linha = f'{nome},{id}::{notas_str}\n'
+            file.write(linha)
+    print(f'Turma guardada em {fnome}')
+
+def Carregarturma(fnome):
+    turma = []
+    file = open(fnome,'r')
+    for linha in file:
+        if linha != '': # Identifica linhas com texto
+            dados = linha.split('::') # Dividimos as linhas do ficheiro nos dados do tuplo
+            nome_id = dados[0].split(',')
+            nome = nome_id[0]
+            id = int(nome_id[1])
+            notas = list(map(float, dados[1].split(',')))
+            aluno = (nome, id, notas)
+            turma.append(aluno)
+    return turma
+
+
+def Sair(turma):
+    print('Até à próxima!')
+
+
+
+turma = []
+op = -1
+
+while op != 0:
+    menu()
+    op = int(input('Selecione a opção desejada: '))
+
+    if op == 0:
+        Sair(turma)
+    elif op == 1:
+        turma = Criarturma(turma)
+    elif op == 2:
+        Inseriraluno(turma)
+    elif op == 3:
+        Listarturma(turma)
+    elif op == 4:
+        Consultarid(turma, id)
+    elif op == 8:
+        GuardarTurma(turma, "turma.txt")
+    elif op == 9:
+        turma = Carregarturma("turma.txt")
+    else:
+        print("Operação inválida introduza um número de 0 a 4 ou de 8 a 9:")
