@@ -50,12 +50,16 @@ def Listarturma(turma):
         print(f"Nome: {a[0]} | ID: {a[1]} | Notas: {a[2]}")
 
 def Consultarid(turma, id):
-    i = 0
-    id = int(input('Introduza o id do aluno: '))
-    for i, aluno in enumerate(turma):
-        print(f'Nome: {aluno[0]}, ID: {id}, Notas: {aluno[2]}')
-        return
-    print(f'Aluno com id {id} não encontrado na turma')
+    id_procurado = int(input('Introduza o id do aluno: '))
+    encontrado = False
+
+    for aluno in turma:
+        if aluno[1] == id_procurado:
+            print(f'Nome: {aluno[0]}, ID: {aluno[1]}, Notas: {aluno[2]}')
+            encontrado = True
+
+    if not encontrado:
+        print(f'Aluno com id {id_procurado} não encontrado na turma')
 
 def GuardarTurma(turma, fnome):
     with open(fnome, 'w') as file:
