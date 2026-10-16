@@ -28,7 +28,7 @@ def lerLista ():
     while continuar == "s":
         n = int(input("Introduza um número inteiro"))
         lista.append(n)
-        continuar = int(input("Deseja adicionar mais algum número à sua liasta? (s/n)"))
+        continuar = int(input("Deseja adicionar mais algum número à sua liasta? (s/n)")).lower()
     return lista
 
 def soma (lista):
