@@ -18,7 +18,7 @@ def Criarturma(turma):
     for i in range(n):
         print(f"\nAluno {i + 1}:")
         nome = input("Nome: ")
-        id_aluno = input("ID: ")
+        id_aluno = int(input("ID: "))
         notaTPC = float(input("Nota do TPC: "))
         notaProj = float(input("Nota do Projeto: "))
         notaTeste = float(input("Nota do Teste: "))
@@ -30,7 +30,7 @@ def Criarturma(turma):
 
 def Inseriraluno(turma):
     nome = input("Nome: ")
-    id_aluno = input("ID: ")
+    id_aluno = int(input("ID: "))
     notaTPC = float(input("Nota do TPC: "))
     notaProj = float(input("Nota do Projeto: "))
     notaTeste = float(input("Nota do Teste: "))
@@ -50,39 +50,26 @@ def Listarturma(turma):
         print(f"Nome: {a[0]} | ID: {a[1]} | Notas: {a[2]}")
 
 def Consultarid(turma, id):
-    id_procurado = int(input('Introduza o id do aluno: '))
+    id_procurado = int(input("Introduza o id do aluno: "))
     encontrado = False
 
     for aluno in turma:
         if aluno[1] == id_procurado:
-            print(f'Nome: {aluno[0]}, ID: {aluno[1]}, Notas: {aluno[2]}')
+            print(f"Nome: {aluno[0]} | ID: {aluno[1]} | Notas: {aluno[2]}")
             encontrado = True
 
     if not encontrado:
-        print(f'Aluno com id {id_procurado} não encontrado na turma')
+        print(f"Aluno com id {id_procurado} não encontrado na turma.")
 
 def GuardarTurma(turma, fnome):
-    with open(fnome, 'w') as file:
-        for nome, id, notas in turma: # Aluno fica formatado como 'nome,id::nota1,nota2,nota3'
-            notas_str = ",".join(map(str, notas))
-            linha = f'{nome},{id}::{notas_str}\n'
-            file.write(linha)
-    print(f'Turma guardada em {fnome}')
+    file = open(fnome, 'w')
+    for aluno in turma:
+        file.write(str(aluno) + "\n")
+    file.close()
+    print(f"Turma guardada em {fnome}.")
 
 def Carregarturma(fnome):
-    turma = []
-    file = open(fnome,'r')
-    for linha in file:
-        if linha != '': # Identifica linhas com texto
-            dados = linha.split('::') # Dividimos as linhas do ficheiro nos dados do tuplo
-            nome_id = dados[0].split(',')
-            nome = nome_id[0]
-            id = int(nome_id[1])
-            notas = list(map(float, dados[1].split(',')))
-            aluno = (nome, id, notas)
-            turma.append(aluno)
-    return turma
-
+    
 
 def Sair(turma):
     print('Até à próxima!')
