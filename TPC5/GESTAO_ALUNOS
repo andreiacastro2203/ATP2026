@@ -62,14 +62,26 @@ def Consultarid(turma, id):
         print(f"Aluno com id {id_procurado} não encontrado na turma.")
 
 def GuardarTurma(turma, fnome):
-    file = open(fnome, 'w')
+    nomefile = input("Indica o nome que queres dar ao ficheiro:")
+    file = open(f"{nomefile}.txt", "w")
     for aluno in turma:
-        file.write(str(aluno) + "\n")
+        file.write(f"{aluno[0]}|{aluno[1]}|{aluno[2][0]}|{aluno[2][1]}|{aluno[2][2]} \n")
     file.close()
-    print(f"Turma guardada em {fnome}.")
+    print(f"A sua turma foi guardada com sucesso no ficheiro {nomefile}")
 
 def Carregarturma(fnome):
-    
+    nomefile = input("Indica o nome do ficheiro a abrir:")
+    turma = []
+    file = open(f"{nomefile}.txt", "r")
+    for line in file:
+        dados = line.split ("|")
+        nome = dados [0]
+        id = dados [1]
+        notas = [float(dados [2]), float(dados [3]), float(dados [4])]
+        aluno = (nome, id, notas)
+        turma.append (aluno)
+    file.close()
+    return turma
 
 def Sair(turma):
     print('Até à próxima!')
