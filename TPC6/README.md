@@ -1,0 +1,3 @@
+# TPC6
+O TPC6 pedia uma aplicação em Python para trabalhar com dados meteorológicos, organizados numa tabela em que cada registo contém a data (ano, mês, dia), a temperatura mínima, a temperatura máxima e a precipitação desse dia. 
+A aplicação devia ter um menu interativo que permitisse calcular a temperatura média de cada dia, guardar a tabela num ficheiro de texto e voltar a carregá-la, descobrir a temperatura mínima mais baixa, calcular a amplitude térmica diária, identificar o dia com maior precipitação, listar os dias em que a precipitação ultrapassa um dado limite, determinar o maior período de dias consecutivos com pouca chuva e, por fim, mostrar gráficos com as temperaturas (mínima e máxima) e a precipitação, usando a biblioteca `matplotlib`.
