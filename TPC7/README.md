@@ -1,3 +1,5 @@
+# TPC6
+
 O TPC7 (Prova de Aferição) é composto por três exercícios comalgumas alíneas para testar os conhecimentos adquiridos nas aulas.
 
 No primeiro exercício, é preciso especificar listas em compreensão: 
